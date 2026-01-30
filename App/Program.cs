@@ -35,7 +35,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<TodosDbContext>(options =>
     options.UseMySql(
         connectionString,
-        ServerVersion.AutoDetect(connectionString)
+        new MySqlServerVersion(new Version(8, 0, 0))
     ));
 
 var app = builder.Build();
