@@ -32,6 +32,10 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+Console.WriteLine($"MYSQL_HOST = '{Environment.GetEnvironmentVariable("MYSQL_HOST")}'");
+Console.WriteLine($"MYSQL_PORT = '{Environment.GetEnvironmentVariable("MYSQL_PORT")}'");
+Console.WriteLine($"MYSQL_DATABASE = '{Environment.GetEnvironmentVariable("MYSQL_DATABASE")}'");
+
 builder.Services.AddDbContext<TodosDbContext>(options =>
     options.UseMySql(
         connectionString,
