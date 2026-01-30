@@ -1,7 +1,30 @@
 using App.Data;
 using Microsoft.EntityFrameworkCore;
+using DotNetEnv;
+Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Read env vars (runtime only)
+var host = Environment.GetEnvironmentVariable("MYSQL_HOST")
+    ?? throw new InvalidOperationException("MYSQL_HOST is not set");
+
+var port = Environment.GetEnvironmentVariable("MYSQL_PORT") ?? "3306";
+var database = Environment.GetEnvironmentVariable("MYSQL_DATABASE")
+    ?? throw new InvalidOperationException("MYSQL_DATABASE is not set");
+
+var user = Environment.GetEnvironmentVariable("MYSQL_USER")
+    ?? throw new InvalidOperationException("MYSQL_USER is not set");
+
+var password = Environment.GetEnvironmentVariable("MYSQL_PASSWORD")
+    ?? throw new InvalidOperationException("MYSQL_PASSWORD is not set");
+
+var connectionString =
+    $"Server={host};" +
+    $"Port={port};" +
+    $"Database={database};" +
+    $"User={user};" +
+    $"Password={password}";
 
 // Add services to the container.
 
@@ -11,10 +34,8 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<TodosDbContext>(options =>
     options.UseMySql(
-        builder.Configuration.GetConnectionString("Default"),
-        ServerVersion.AutoDetect(
-            builder.Configuration.GetConnectionString("Default")
-        )
+        connectionString,
+        ServerVersion.AutoDetect(connectionString)
     ));
 
 var app = builder.Build();
