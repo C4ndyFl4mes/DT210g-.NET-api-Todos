@@ -14,5 +14,5 @@ public class TodoModel
     public required string Description { get; set; }
 
     [Required]
-    public required EStatus Status { get; set; }
+    public required string Status { get; set; }
 }

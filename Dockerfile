@@ -1,19 +1,19 @@
 # ---- Build stage ----
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
+# Copy everything and restore/publish
 COPY . .
 RUN dotnet publish -c Release -o /app/publish
 
 # ---- Runtime stage ----
-FROM mcr.microsoft.com/dotnet/aspnet:10.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 
+# Copy published output
 COPY --from=build /app/publish .
 
-# Create directory where Railway volume will be mounted
-RUN mkdir -p /data
-
+# Railway listens on 8080
 ENV ASPNETCORE_URLS=http://+:8080
 EXPOSE 8080
 
