@@ -6,5 +6,5 @@ public enum EStatus
 {
     Pending,
     Ongoing,
-    Finnished
+    Completed
 }
