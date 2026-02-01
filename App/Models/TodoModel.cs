@@ -10,8 +10,8 @@ public class TodoModel
     [Required, MinLength(3), MaxLength(40)]
     public required string Title { get; set; }
 
-    [Required, MinLength(3), MaxLength(150)]
-    public required string Description { get; set; }
+    [MinLength(3), MaxLength(200)]
+    public string? Description { get; set; }
 
     [EnumDataType(typeof(EStatus))]
     public EStatus Status { get; set; } = EStatus.Pending;
