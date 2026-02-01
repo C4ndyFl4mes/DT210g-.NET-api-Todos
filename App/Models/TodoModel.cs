@@ -10,7 +10,7 @@ public class TodoModel
     [Required, MinLength(3), MaxLength(40)]
     public required string Title { get; set; }
 
-    [MinLength(3), MaxLength(200)]
+    [MaxLength(200)]
     public string? Description { get; set; }
 
     [EnumDataType(typeof(EStatus))]
